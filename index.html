@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        /* Add rounded corners to the button element */
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #F8E71C; /* Yellow color */
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px; /* Increased border-radius for rounded corners */
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        /* Add a block style to the button and input elements */
+        button[type="submit"], input[type="text"] {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%; /* Make input and button full-width */
+        }
+
+        /* Style the input element without yellow color */
+        input[type="text"] {
+            padding: 10px 20px;
+            color: #333;
+            font-size: 16px;
+            border: none;
+            border-radius: 15px; /* Increased border-radius for rounded corners */
+            cursor: text;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        /* Style the form container to make elements closer */
+        form {
+            margin-bottom: 20px;
+        }
+
+        /* Set a maximum width for header and main containers */
+        .container {
+            max-width: 600px; /* Adjust the maximum width as needed */
+            margin: 0 auto; /* Center the container horizontally */
+        }
+    </style>
+    <title>ToDo 📒</title>
+</head>
+
+<body>
+    <header class="container">
+        <hgroup>
+            <h1>ToDo 📒</h1>
+            <h2>Built using Bun</h2>
+        </hgroup>
+    </header>
+
+    <main class="container">
+        <form hx-post="/todos" hx-target="#todos" hx-ext="json-enc" _="on submit target.reset()">
+            <input id="todo" name="todo" type="text" aria-label="Create" placeholder="New todo">
+            <button type="submit">Create</button>
+        </form>
+
+        <section id="todos" hx-get="/todos" hx-trigger="load"></section>
+    </main>
+</body>
+
+</html>
